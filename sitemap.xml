@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://datadavev.github.io/solr-property-graph/starting_points.html</loc>
-    <lastmod>2022-08-31T15:00:13.385Z</lastmod>
+    <lastmod>2022-08-31T15:12:26.509Z</lastmod>
   </url>
   <url>
     <loc>https://datadavev.github.io/solr-property-graph/index.html</loc>
-    <lastmod>2022-08-31T15:00:14.546Z</lastmod>
+    <lastmod>2022-08-31T15:12:30.482Z</lastmod>
   </url>
   <url>
     <loc>https://datadavev.github.io/solr-property-graph/graph_traversal01.html</loc>
-    <lastmod>2022-08-31T15:00:17.424Z</lastmod>
+    <lastmod>2022-08-31T15:12:36.252Z</lastmod>
+  </url>
+  <url>
+    <loc>https://datadavev.github.io/solr-property-graph/test_graph_setup.html</loc>
+    <lastmod>2022-08-31T15:12:41.966Z</lastmod>
   </url>
 </urlset>
