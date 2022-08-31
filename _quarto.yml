@@ -11,6 +11,8 @@ website:
         text: Nodes and Edges
       - href: graph_traversal01.qmd
         text: Graph Traversals
+      - href: test_graph_setup.qmd
+        text: Setup
   
   repo-url: https://github.com/datadavev/solr-property-graph
   repo-actions: [edit, issue]
