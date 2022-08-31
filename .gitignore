@@ -1,5 +1,6 @@
 .DS_Store
 plantuml-images
+_site
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
