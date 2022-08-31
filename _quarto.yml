@@ -1,6 +1,5 @@
 project:
   type: website
-  output-dir: docs
 
 website:
   title: "Graphs in Solr"
@@ -12,6 +11,21 @@ website:
         text: Nodes and Edges
       - href: graph_traversal01.qmd
         text: Graph Traversals
+  
+  repo-url: https://github.com/datadavev/solr-property-graph
+  repo-actions: [edit, issue]
+
+  page-footer: 
+    left: >
+        © Copyright 2022, iSamples Project.
+        
+        This material is based upon work supported by the National Science Foundation under Grant Numbers 
+        [2004839](https://nsf.gov/awardsearch/showAward?AWD_ID=2004839), 
+        [2004562](https://nsf.gov/awardsearch/showAward?AWD_ID=2004562), 
+        [2004642](https://nsf.gov/awardsearch/showAward?AWD_ID=2004642), 
+        and [2004815](https://nsf.gov/awardsearch/showAward?AWD_ID=2004815). 
+        Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the [National Science Foundation](https://nsf.gov/).
+    
 
 format:
   html:
