@@ -170,9 +170,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a>
+  <ul class="collapse">
   <li><a href="#editing" id="toc-editing" class="nav-link" data-scroll-target="#editing">Editing</a></li>
-  <li><a href="#publishing" id="toc-publishing" class="nav-link" data-scroll-target="#publishing">Publishing</a></li>
+  <li><a href="#solr-instance" id="toc-solr-instance" class="nav-link" data-scroll-target="#solr-instance">Solr Instance</a></li>
+  <li><a href="#publishing-to-github-pages" id="toc-publishing-to-github-pages" class="nav-link" data-scroll-target="#publishing-to-github-pages">Publishing to GitHub Pages</a></li>
+  </ul></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/datadavev/solr-property-graph/edit/main/test_graph_setup.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/datadavev/solr-property-graph/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -204,38 +207,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="setup" class="level1">
 <h1>Setup</h1>
+<section id="editing" class="level2">
+<h2 class="anchored" data-anchor-id="editing">Editing</h2>
+<p>Setup your <a href="https://quarto.org/">Quarto</a> environment and install some dependencies into your environment:</p>
+<pre><code>jupyter 
+graphviz 
+tabulate 
+jupyter-cache</code></pre>
+<p>Checkout this project and navigate to its root folder. Start the docker instance for Solr as described below, then run <code>quarto preview</code> to generate pages and open in a browser. Edits to pages are re-rendered and the browser refreshed on save.</p>
+</section>
+<section id="solr-instance" class="level2">
+<h2 class="anchored" data-anchor-id="solr-instance">Solr Instance</h2>
 <p>A Solr instance is needed to build these documents, and it is assumed the Solr service is available on port <code>18983</code>. A minimal Solr instance can be deployed using docker and this <code>docker-compose.yml</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3'</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">services</span><span class="kw">:</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">solr</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> solr</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"18983:8983"</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"solrdata:/var/solr"</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a><span class="at">    </span><span class="fu">command</span><span class="kw">:</span><span class="at"> solr -f -cloud</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="at">  </span><span class="fu">solrdata</span><span class="kw">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3'</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">solr</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> solr</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"18983:8983"</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"solrdata:/var/solr"</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="at">    </span><span class="fu">command</span><span class="kw">:</span><span class="at"> solr -f -cloud</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="at">  </span><span class="fu">solrdata</span><span class="kw">:</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Start it up like <code>docker-compose up -d</code>.</p>
 <p>With the Solr instance running, we can create the test collection and populate it with the example graph documents.</p>
 <div class="cell" data-execution_count="1">
 <details>
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> example_graph</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> graphutzing</span>
-<span id="cb2-3"><a href="#cb2-3"></a></span>
-<span id="cb2-4"><a href="#cb2-4"></a>solr <span class="op">=</span> graphutzing.SolrConnection()</span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="bu">print</span>(<span class="st">"Deleting collection..."</span>)</span>
-<span id="cb2-6"><a href="#cb2-6"></a>solr.deleteCollection()</span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="bu">print</span>(<span class="st">"Creating collection..."</span>)</span>
-<span id="cb2-8"><a href="#cb2-8"></a>solr.createCollection()</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="bu">print</span>(<span class="st">"Adding _nest_parent_ field to collection..."</span>)</span>
-<span id="cb2-10"><a href="#cb2-10"></a>solr.addField(<span class="st">"_nest_parent_"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="bu">print</span>(<span class="st">"Populating index with test documents..."</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a>ndocs <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="cf">for</span> doc <span class="kw">in</span> example_graph.docs:</span>
-<span id="cb2-14"><a href="#cb2-14"></a>    ndocs <span class="op">+=</span> solr.addDocument(doc)</span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="bu">print</span>(<span class="ss">f"Added </span><span class="sc">{</span>ndocs<span class="sc">}</span><span class="ss"> documents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> example_graph</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> graphutzing</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a>solr <span class="op">=</span> graphutzing.SolrConnection()</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="bu">print</span>(<span class="st">"Deleting collection..."</span>)</span>
+<span id="cb3-6"><a href="#cb3-6"></a>solr.deleteCollection()</span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="bu">print</span>(<span class="st">"Creating collection..."</span>)</span>
+<span id="cb3-8"><a href="#cb3-8"></a>solr.createCollection()</span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="bu">print</span>(<span class="st">"Adding _nest_parent_ field to collection..."</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>solr.addField(<span class="st">"_nest_parent_"</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="bu">print</span>(<span class="st">"Populating index with test documents..."</span>)</span>
+<span id="cb3-12"><a href="#cb3-12"></a>ndocs <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="cf">for</span> doc <span class="kw">in</span> example_graph.docs:</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    ndocs <span class="op">+=</span> solr.addDocument(doc)</span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="bu">print</span>(<span class="ss">f"Added </span><span class="sc">{</span>ndocs<span class="sc">}</span><span class="ss"> documents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Deleting collection...</code></pre>
@@ -247,12 +261,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>{
   "responseHeader":{
     "status":0,
-    "QTime":825},
+    "QTime":839},
   "success":{
     "172.18.0.2:8983_solr":{
       "responseHeader":{
         "status":0,
-        "QTime":367},
+        "QTime":378},
       "core":"reltest_shard1_replica_n1"}},
   "warning":"Using _default configset. Data driven schema functionality is enabled by default, which is NOT RECOMMENDED for production use. To turn it off: curl http://{host:port}/solr/reltest/config -d '{\"set-user-property\": {\"update.autoCreateFields\":\"false\"}}'"}
 
@@ -260,7 +274,7 @@ Adding _nest_parent_ field to collection...
 {
   "responseHeader":{
     "status":400,
-    "QTime":118},
+    "QTime":113},
   "error":{
     "metadata":[
       "error-class","org.apache.solr.api.ApiBag$ExceptionWithErrObject",
@@ -282,17 +296,8 @@ Populating index with test documents...</code></pre>
 </div>
 </div>
 </section>
-<section id="editing" class="level1">
-<h1>Editing</h1>
-<p>Setup your <a href="https://quarto.org/">Quarto</a> environment and install some dependencies into your environemnt:</p>
-<pre><code>jupyter 
-graphviz 
-tabulate 
-jupyter-cache</code></pre>
-<p>Checkout this project and navigate to its root folder. Start the docker instance for Solr as described above, then run <code>quarto preview</code> to generate pages and open in a browser. Edits to pages are re-rendered and the browser refreshed on save.</p>
-</section>
-<section id="publishing" class="level1">
-<h1>Publishing</h1>
+<section id="publishing-to-github-pages" class="level2">
+<h2 class="anchored" data-anchor-id="publishing-to-github-pages">Publishing to GitHub Pages</h2>
 <p>This site is published to Github Pages using the Quarto <a href="https://quarto.org/docs/publishing/github-pages.html#publish-command"><code>publish gh-pages</code></a> option. For example:</p>
 <pre><code># First, commit and push edits
 # Then publish
@@ -301,6 +306,7 @@ quarto publish gh-pages</code></pre>
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -471,67 +477,69 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb9-16"><a href="#cb9-16"></a></span>
 <span id="cb9-17"><a href="#cb9-17"></a><span class="fu"># Setup</span></span>
 <span id="cb9-18"><a href="#cb9-18"></a></span>
-<span id="cb9-19"><a href="#cb9-19"></a>A Solr instance is needed to build these documents, and it is assumed the Solr service is available on port <span class="in">`18983`</span>. A minimal Solr instance can be deployed using docker and this <span class="in">`docker-compose.yml`</span>:</span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="fu">## Editing</span></span>
 <span id="cb9-20"><a href="#cb9-20"></a></span>
-<span id="cb9-21"><a href="#cb9-21"></a><span class="in">```{.yaml}</span></span>
-<span id="cb9-22"><a href="#cb9-22"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3'</span></span>
-<span id="cb9-23"><a href="#cb9-23"></a><span class="fu">services</span><span class="kw">:</span></span>
-<span id="cb9-24"><a href="#cb9-24"></a><span class="at">  </span><span class="fu">solr</span><span class="kw">:</span></span>
-<span id="cb9-25"><a href="#cb9-25"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> solr</span></span>
-<span id="cb9-26"><a href="#cb9-26"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
-<span id="cb9-27"><a href="#cb9-27"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"18983:8983"</span></span>
-<span id="cb9-28"><a href="#cb9-28"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb9-29"><a href="#cb9-29"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"solrdata:/var/solr"</span></span>
-<span id="cb9-30"><a href="#cb9-30"></a><span class="at">    </span><span class="fu">command</span><span class="kw">:</span><span class="at"> solr -f -cloud</span></span>
-<span id="cb9-31"><a href="#cb9-31"></a><span class="fu">volumes</span><span class="kw">:</span></span>
-<span id="cb9-32"><a href="#cb9-32"></a><span class="at">  </span><span class="fu">solrdata</span><span class="kw">:</span></span>
-<span id="cb9-33"><a href="#cb9-33"></a><span class="in">```</span></span>
-<span id="cb9-34"><a href="#cb9-34"></a></span>
-<span id="cb9-35"><a href="#cb9-35"></a>Start it up like <span class="in">`docker-compose up -d`</span>.</span>
-<span id="cb9-36"><a href="#cb9-36"></a></span>
-<span id="cb9-37"><a href="#cb9-37"></a>With the Solr instance running, we can create the test collection and populate it with the example graph documents.</span>
-<span id="cb9-38"><a href="#cb9-38"></a></span>
-<span id="cb9-41"><a href="#cb9-41"></a><span class="in">```{python}</span></span>
-<span id="cb9-42"><a href="#cb9-42"></a><span class="im">import</span> example_graph</span>
-<span id="cb9-43"><a href="#cb9-43"></a><span class="im">import</span> graphutzing</span>
-<span id="cb9-44"><a href="#cb9-44"></a></span>
-<span id="cb9-45"><a href="#cb9-45"></a>solr <span class="op">=</span> graphutzing.SolrConnection()</span>
-<span id="cb9-46"><a href="#cb9-46"></a><span class="bu">print</span>(<span class="st">"Deleting collection..."</span>)</span>
-<span id="cb9-47"><a href="#cb9-47"></a>solr.deleteCollection()</span>
-<span id="cb9-48"><a href="#cb9-48"></a><span class="bu">print</span>(<span class="st">"Creating collection..."</span>)</span>
-<span id="cb9-49"><a href="#cb9-49"></a>solr.createCollection()</span>
-<span id="cb9-50"><a href="#cb9-50"></a><span class="bu">print</span>(<span class="st">"Adding _nest_parent_ field to collection..."</span>)</span>
-<span id="cb9-51"><a href="#cb9-51"></a>solr.addField(<span class="st">"_nest_parent_"</span>)</span>
-<span id="cb9-52"><a href="#cb9-52"></a><span class="bu">print</span>(<span class="st">"Populating index with test documents..."</span>)</span>
-<span id="cb9-53"><a href="#cb9-53"></a>ndocs <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-54"><a href="#cb9-54"></a><span class="cf">for</span> doc <span class="kw">in</span> example_graph.docs:</span>
-<span id="cb9-55"><a href="#cb9-55"></a>    ndocs <span class="op">+=</span> solr.addDocument(doc)</span>
-<span id="cb9-56"><a href="#cb9-56"></a><span class="bu">print</span>(<span class="ss">f"Added </span><span class="sc">{</span>ndocs<span class="sc">}</span><span class="ss"> documents"</span>)</span>
-<span id="cb9-57"><a href="#cb9-57"></a><span class="in">```</span></span>
-<span id="cb9-58"><a href="#cb9-58"></a></span>
-<span id="cb9-59"><a href="#cb9-59"></a><span class="fu"># Editing</span></span>
-<span id="cb9-60"><a href="#cb9-60"></a></span>
-<span id="cb9-61"><a href="#cb9-61"></a>Setup your <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span> environment and install some dependencies into your environemnt:</span>
-<span id="cb9-62"><a href="#cb9-62"></a></span>
-<span id="cb9-63"><a href="#cb9-63"></a><span class="in">```</span></span>
-<span id="cb9-64"><a href="#cb9-64"></a><span class="in">jupyter </span></span>
-<span id="cb9-65"><a href="#cb9-65"></a><span class="in">graphviz </span></span>
-<span id="cb9-66"><a href="#cb9-66"></a><span class="in">tabulate </span></span>
-<span id="cb9-67"><a href="#cb9-67"></a><span class="in">jupyter-cache</span></span>
-<span id="cb9-68"><a href="#cb9-68"></a><span class="in">```</span></span>
-<span id="cb9-69"><a href="#cb9-69"></a></span>
-<span id="cb9-70"><a href="#cb9-70"></a>Checkout this project and navigate to its root folder. Start the docker instance for Solr as described above, then run <span class="in">`quarto preview`</span> to generate pages and open in a browser. Edits to pages are re-rendered and the browser refreshed on save.</span>
-<span id="cb9-71"><a href="#cb9-71"></a></span>
-<span id="cb9-72"><a href="#cb9-72"></a></span>
-<span id="cb9-73"><a href="#cb9-73"></a><span class="fu"># Publishing</span></span>
+<span id="cb9-21"><a href="#cb9-21"></a>Setup your <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span> environment and install some dependencies into your environment:</span>
+<span id="cb9-22"><a href="#cb9-22"></a></span>
+<span id="cb9-23"><a href="#cb9-23"></a><span class="in">```</span></span>
+<span id="cb9-24"><a href="#cb9-24"></a><span class="in">jupyter </span></span>
+<span id="cb9-25"><a href="#cb9-25"></a><span class="in">graphviz </span></span>
+<span id="cb9-26"><a href="#cb9-26"></a><span class="in">tabulate </span></span>
+<span id="cb9-27"><a href="#cb9-27"></a><span class="in">jupyter-cache</span></span>
+<span id="cb9-28"><a href="#cb9-28"></a><span class="in">```</span></span>
+<span id="cb9-29"><a href="#cb9-29"></a></span>
+<span id="cb9-30"><a href="#cb9-30"></a>Checkout this project and navigate to its root folder. Start the docker instance for Solr as described below, then run <span class="in">`quarto preview`</span> to generate pages and open in a browser. Edits to pages are re-rendered and the browser refreshed on save.</span>
+<span id="cb9-31"><a href="#cb9-31"></a></span>
+<span id="cb9-32"><a href="#cb9-32"></a><span class="fu">## Solr Instance</span></span>
+<span id="cb9-33"><a href="#cb9-33"></a></span>
+<span id="cb9-34"><a href="#cb9-34"></a>A Solr instance is needed to build these documents, and it is assumed the Solr service is available on port <span class="in">`18983`</span>. A minimal Solr instance can be deployed using docker and this <span class="in">`docker-compose.yml`</span>:</span>
+<span id="cb9-35"><a href="#cb9-35"></a></span>
+<span id="cb9-36"><a href="#cb9-36"></a><span class="in">```{.yaml}</span></span>
+<span id="cb9-37"><a href="#cb9-37"></a><span class="fu">version</span><span class="kw">:</span><span class="at"> </span><span class="st">'3'</span></span>
+<span id="cb9-38"><a href="#cb9-38"></a><span class="fu">services</span><span class="kw">:</span></span>
+<span id="cb9-39"><a href="#cb9-39"></a><span class="at">  </span><span class="fu">solr</span><span class="kw">:</span></span>
+<span id="cb9-40"><a href="#cb9-40"></a><span class="at">    </span><span class="fu">image</span><span class="kw">:</span><span class="at"> solr</span></span>
+<span id="cb9-41"><a href="#cb9-41"></a><span class="at">    </span><span class="fu">ports</span><span class="kw">:</span></span>
+<span id="cb9-42"><a href="#cb9-42"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"18983:8983"</span></span>
+<span id="cb9-43"><a href="#cb9-43"></a><span class="at">    </span><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb9-44"><a href="#cb9-44"></a><span class="at">      </span><span class="kw">-</span><span class="at"> </span><span class="st">"solrdata:/var/solr"</span></span>
+<span id="cb9-45"><a href="#cb9-45"></a><span class="at">    </span><span class="fu">command</span><span class="kw">:</span><span class="at"> solr -f -cloud</span></span>
+<span id="cb9-46"><a href="#cb9-46"></a><span class="fu">volumes</span><span class="kw">:</span></span>
+<span id="cb9-47"><a href="#cb9-47"></a><span class="at">  </span><span class="fu">solrdata</span><span class="kw">:</span></span>
+<span id="cb9-48"><a href="#cb9-48"></a><span class="in">```</span></span>
+<span id="cb9-49"><a href="#cb9-49"></a></span>
+<span id="cb9-50"><a href="#cb9-50"></a>Start it up like <span class="in">`docker-compose up -d`</span>.</span>
+<span id="cb9-51"><a href="#cb9-51"></a></span>
+<span id="cb9-52"><a href="#cb9-52"></a>With the Solr instance running, we can create the test collection and populate it with the example graph documents.</span>
+<span id="cb9-53"><a href="#cb9-53"></a></span>
+<span id="cb9-56"><a href="#cb9-56"></a><span class="in">```{python}</span></span>
+<span id="cb9-57"><a href="#cb9-57"></a><span class="im">import</span> example_graph</span>
+<span id="cb9-58"><a href="#cb9-58"></a><span class="im">import</span> graphutzing</span>
+<span id="cb9-59"><a href="#cb9-59"></a></span>
+<span id="cb9-60"><a href="#cb9-60"></a>solr <span class="op">=</span> graphutzing.SolrConnection()</span>
+<span id="cb9-61"><a href="#cb9-61"></a><span class="bu">print</span>(<span class="st">"Deleting collection..."</span>)</span>
+<span id="cb9-62"><a href="#cb9-62"></a>solr.deleteCollection()</span>
+<span id="cb9-63"><a href="#cb9-63"></a><span class="bu">print</span>(<span class="st">"Creating collection..."</span>)</span>
+<span id="cb9-64"><a href="#cb9-64"></a>solr.createCollection()</span>
+<span id="cb9-65"><a href="#cb9-65"></a><span class="bu">print</span>(<span class="st">"Adding _nest_parent_ field to collection..."</span>)</span>
+<span id="cb9-66"><a href="#cb9-66"></a>solr.addField(<span class="st">"_nest_parent_"</span>)</span>
+<span id="cb9-67"><a href="#cb9-67"></a><span class="bu">print</span>(<span class="st">"Populating index with test documents..."</span>)</span>
+<span id="cb9-68"><a href="#cb9-68"></a>ndocs <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-69"><a href="#cb9-69"></a><span class="cf">for</span> doc <span class="kw">in</span> example_graph.docs:</span>
+<span id="cb9-70"><a href="#cb9-70"></a>    ndocs <span class="op">+=</span> solr.addDocument(doc)</span>
+<span id="cb9-71"><a href="#cb9-71"></a><span class="bu">print</span>(<span class="ss">f"Added </span><span class="sc">{</span>ndocs<span class="sc">}</span><span class="ss"> documents"</span>)</span>
+<span id="cb9-72"><a href="#cb9-72"></a><span class="in">```</span></span>
+<span id="cb9-73"><a href="#cb9-73"></a></span>
 <span id="cb9-74"><a href="#cb9-74"></a></span>
-<span id="cb9-75"><a href="#cb9-75"></a>This site is published to Github Pages using the Quarto <span class="co">[</span><span class="ot">`publish gh-pages`</span><span class="co">](https://quarto.org/docs/publishing/github-pages.html#publish-command)</span> option. For example:</span>
+<span id="cb9-75"><a href="#cb9-75"></a><span class="fu">## Publishing to GitHub Pages</span></span>
 <span id="cb9-76"><a href="#cb9-76"></a></span>
-<span id="cb9-77"><a href="#cb9-77"></a><span class="in">```</span></span>
-<span id="cb9-78"><a href="#cb9-78"></a><span class="in"># First, commit and push edits</span></span>
-<span id="cb9-79"><a href="#cb9-79"></a><span class="in"># Then publish</span></span>
-<span id="cb9-80"><a href="#cb9-80"></a><span class="in">quarto publish gh-pages</span></span>
-<span id="cb9-81"><a href="#cb9-81"></a><span class="in">```</span></span>
+<span id="cb9-77"><a href="#cb9-77"></a>This site is published to Github Pages using the Quarto <span class="co">[</span><span class="ot">`publish gh-pages`</span><span class="co">](https://quarto.org/docs/publishing/github-pages.html#publish-command)</span> option. For example:</span>
+<span id="cb9-78"><a href="#cb9-78"></a></span>
+<span id="cb9-79"><a href="#cb9-79"></a><span class="in">```</span></span>
+<span id="cb9-80"><a href="#cb9-80"></a><span class="in"># First, commit and push edits</span></span>
+<span id="cb9-81"><a href="#cb9-81"></a><span class="in"># Then publish</span></span>
+<span id="cb9-82"><a href="#cb9-82"></a><span class="in">quarto publish gh-pages</span></span>
+<span id="cb9-83"><a href="#cb9-83"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
