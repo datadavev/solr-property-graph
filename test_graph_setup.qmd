@@ -16,6 +16,21 @@ format:
 
 # Setup
 
+## Editing
+
+Setup your [Quarto](https://quarto.org/) environment and install some dependencies into your environment:
+
+```
+jupyter 
+graphviz 
+tabulate 
+jupyter-cache
+```
+
+Checkout this project and navigate to its root folder. Start the docker instance for Solr as described below, then run `quarto preview` to generate pages and open in a browser. Edits to pages are re-rendered and the browser refreshed on save.
+
+## Solr Instance
+
 A Solr instance is needed to build these documents, and it is assumed the Solr service is available on port `18983`. A minimal Solr instance can be deployed using docker and this `docker-compose.yml`:
 
 ```{.yaml}
@@ -54,21 +69,8 @@ for doc in example_graph.docs:
 print(f"Added {ndocs} documents")
 ```
 
-# Editing
 
-Setup your [Quarto](https://quarto.org/) environment and install some dependencies into your environemnt:
-
-```
-jupyter 
-graphviz 
-tabulate 
-jupyter-cache
-```
-
-Checkout this project and navigate to its root folder. Start the docker instance for Solr as described above, then run `quarto preview` to generate pages and open in a browser. Edits to pages are re-rendered and the browser refreshed on save.
-
-
-# Publishing
+## Publishing to GitHub Pages
 
 This site is published to Github Pages using the Quarto [`publish gh-pages`](https://quarto.org/docs/publishing/github-pages.html#publish-command) option. For example:
 
@@ -77,4 +79,3 @@ This site is published to Github Pages using the Quarto [`publish gh-pages`](htt
 # Then publish
 quarto publish gh-pages
 ```
-
