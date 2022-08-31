@@ -1,0 +1,86 @@
+---
+title: Graphing around with Solr
+subtitle: Notes on querying graphs in Solr
+date: 2022-08-31
+jupyter: python3
+---
+
+This document outlines how Solr may be used as a [labelled property graph](https://neo4j.com/blog/rdf-triple-store-vs-labeled-property-graph-difference/), and provides some common query patterns for exploring related content.
+
+
+
+Solr graph operations basically involve a breadth-first scan across documents connected by some property from a starting set of documents and optionally applying filters during the traversal or on the resulting set of documents.
+
+The following solr document structure is used for these examples. Two nodes are described, `a` and `aa`. The node `aa` contains a single edge of type `subsample-of` with a target node of `a`:
+
+```{.json}
+[
+    {
+        "id":"a",
+        "name_t":"parent a",
+        "is_s":"sample",
+        "_root_":"a",
+    },
+    {
+        "id":"aa",
+        "name_t":"sub aa",
+        "is_s":"sample",
+        "_root_":"aa",
+        "edges":[
+            {
+                "id":"111",
+                "relation_type_s":"subsample-of",
+                "target_s":"a",
+                "_root_":"aa",
+                "_nest_parent_":"aa",
+                "_nest_path_":"/related#0"
+            }
+        ]
+    }
+]
+```
+::: {.column-margin .callout-note}
+The fields `_root_`, `_nest_parent_`, and `_nest_path_` are computed by Solr, and should not be included in the documents when indexing.
+:::
+
+Each document structure has two parts - the main document and a optional list of nested child documents that capture relationships with other documents. In this pattern, the outer document is a node of the property graph, and the child `edges` documents are the edges. Both nodes and edges may have many properties. Solr will index each of these as individually addressable documents and the index will have columns matching the union of columns used in the node documents and in the edge documents. The above example might appear in the index like (excluding the Solr calculated fields):
+
+| id | name_t | is_s| relation_type_s | target_s |
+| -- | -- | -- | -- | -- |
+| `a` | `parent a` | `sample` | | |
+| `aa` | `sub aa` | `sample` | | |
+| `111` | | | `subsample-of` | `a` |
+
+
+The resulting solr index has documents `a`, `aa` and `111` in the index with their respective properties. Note that Solr also includes additional properties that record the nested structure. In particular, the properties `_nest_parent_`, `_nest_path_`, and `_root_` (the latter defaulting to not being presentable in results).
+
+The following graph is used in the examples of different operations.
+
+```{python}
+import example_graph
+import graphutzing
+graphutzing.generateViz(example_graph.docs)
+```
+
+In the example graph, relations are uni-directional asserting a statement such as "ab is a subsample-of a" and "aaba is an analysis-of aab", and so forth. The different shapes represent different types of entities as indicated by the `is_s` property.
+
+The complete list of documents in `example_graph` is shown in @tbl-records:
+```{python}
+#| label: tbl-records
+#| tbl-cap: List of records indexed in `example_graph`.
+import IPython.display
+import tabulate
+solr = graphutzing.SolrConnection()
+res = solr.query(data={"q":"*:*", "rows":100, "sort":"is_s DESC, id ASC",})
+header = ["id","name_t","is_s","relation_type_s","target_s","`_nest_parent_`"]
+rows = []
+for doc in res.get("response",{}).get("docs",[]):
+    row = [doc.get("id",""),doc.get("name_t",""),doc.get("is_s",""),doc.get("relation_type_s",""),doc.get("target_s",""), doc.get("_nest_parent_","")]
+    rows.append(row)
+IPython.display.Markdown(tabulate.tabulate(
+    rows,
+    headers=header,
+    tablefmt="pipe",
+    colalign=("right",)
+))
+```

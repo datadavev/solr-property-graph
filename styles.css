@@ -1,0 +1,9 @@
+/* css styles */
+pre, code {
+    font-size: 0.75rem;
+    color: inherit;
+}
+
+pre code {
+    font-size: 0.75rem;
+}

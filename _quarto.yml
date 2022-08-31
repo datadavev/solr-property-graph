@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Graphs in Solr"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: starting_points.qmd
+        text: Nodes and Edges
+      - href: graph_traversal01.qmd
+        text: Graph Traversals
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-tools: true
+    code-summary: "Show the code"
+    code-line-numbers: true
+
+

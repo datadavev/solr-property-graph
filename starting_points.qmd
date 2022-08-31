@@ -1,0 +1,146 @@
+---
+title: Graphing around with Solr
+subtitle: Basic operations for types of node in a graph.
+date: 2022-08-30
+jupyter: python3
+format:
+  html:
+    toc: true
+    theme:
+      - cosmo
+    code-fold: true
+    code-tools: true
+    code-summary: "Show the code"
+    code-line-numbers: true
+
+---
+
+The null query selects all nodes as indicated by the red outlines of the nodes.
+```{python}
+import example_graph
+import graphutzing
+
+solr = graphutzing.SolrConnection()
+
+res = solr.squery()
+solr.render(example_graph.docs, res)
+```
+
+## Nodes with outgoing edges. 
+
+This is the set of documents that contain nested documents.
+
+Query says, use the [`!parent`](https://solr.apache.org/guide/solr/latest/query-guide/block-join-query-parser.html#block-join-parent-query-parser) query parser to find the set of documents that have a `_nest_path_` value and return the parents of those documents. 
+
+```{python}
+ex1 = '''
+search(reltest,
+    q="{!parent 
+        which='*:* -_nest_path_:*'
+       }(+_nest_path_:*)",
+    fl="*",
+    rows=100
+)
+'''
+print(ex1)
+res = solr.sendExpr(ex1)
+solr.render(example_graph.docs, res)
+```
+
+## Nodes with no outgoing edges.
+
+This is the set of documents with no nested documents
+
+```{python}
+ex1 = '''
+search(reltest,
+    q="-_nest_path_:* AND !(
+        {!parent 
+            which='*:* AND -_nest_path_:*'
+        }+_nest_path_:*)",
+    rows=100
+)
+'''
+print(ex1)
+res = solr.sendExpr(ex1)
+solr.render(example_graph.docs, res)
+```
+
+## Nodes with an incoming edge
+
+That is, nodes that are the target of any edge.
+
+This approach uses an [inner join](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#innerjoin) from the edge target in child documents to the target node.
+
+Note that the returned records are a composite of the nested child and its parent
+
+```{python}
+_left = '''    search(reltest,
+        q="_nest_path_:*",
+        fl="target_s,p:relation_type_s,s:_nest_parent_",
+        rows=1000,
+        sort="target_s asc"
+    )'''
+_right = '''    search(reltest,
+        q="-_nest_path_:*",
+        fl="id,*",
+        rows=1000,
+        sort="id asc"
+    )'''
+
+expr = f'''
+innerJoin(
+    {_left},
+    {_right},
+    on="target_s=id"
+)
+'''
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res)
+```
+
+## Nodes with no incoming edges
+
+This is a bit complicated because we only know about the outgoing edges. The approach taken here is to find all the documents that are not nested (i.e. not the edges nested documents) and subtract from that set the documents that are the target of an edge using the Solr [`complement`](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#complement) stream decorator.
+
+```{python}
+# A is all non-nested documents
+A = '''    search(reltest,
+        q="-_nest_path_:*",
+        fl="id,*",
+        rows=1000,
+        sort="id asc"
+    )'''
+# B is all documents that are the target of a relation
+B = '''fetch(reltest, 
+        search(reltest,
+            q=_nest_parent_:*,
+            fl="target_s",
+            sort="target_s asc",
+            rows=1000
+        ),
+        fl="id,target_s",
+        on="target_s=id"
+    )'''
+
+# This doesn't work. I guess the tuples need to be of the same kind of document, not just matching the "on" keys?
+C = '''
+search(reltest,
+    q="_nest_parent_:*",
+    fl="id,target_s",
+    sort="target_s asc",
+    rows=1000
+)'''
+
+# complement A, B is the list of documents in A that are not in B, or A-B.
+expr = f'''complement(
+    {A},
+    {B},
+    on="id=target_s"
+)'''
+
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res)
+```
