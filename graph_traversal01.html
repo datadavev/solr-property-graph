@@ -370,7 +370,7 @@ Filter applied to SOME_PARENTS. This will typically match all parent documents, 
         }id:Descendant
     )
 )</code></pre>
-<p>An alternative, when using streaming expressesions is to use the <a href="https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#fetch"><code>fetch</code></a> stream decorator:</p>
+<p>An alternative, when using streaming expressions is to use the <a href="https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#fetch"><code>fetch</code></a> stream decorator:</p>
 <pre><code>fetch(COLLECTION,
     search(COLLECTION,
         q="{!graph 
@@ -434,7 +434,7 @@ Filter applied to SOME_PARENTS. This will typically match all parent documents, 
 <div id="fig-n1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="graph_traversal01_files/figure-html/fig-n1-output-2.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;2: A line plot on a polar axis</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Ancestors using <code>join</code> on the edge target.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -484,7 +484,7 @@ fetch(reltest,
 <div id="fig-n2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="graph_traversal01_files/figure-html/fig-n2-output-2.svg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;3: A line plot on a polar axis</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Ancestors using <code>fetch</code> from the edge target.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -539,7 +539,12 @@ having(
 )</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="graph_traversal01_files/figure-html/cell-4-output-2.svg" class="img-fluid"></p>
+<div id="fig-n3" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="graph_traversal01_files/figure-html/fig-n3-output-2.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: Samples contributing to publication <code>ccc</code>.</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -591,7 +596,12 @@ having(
 </code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="graph_traversal01_files/figure-html/cell-5-output-2.svg" class="img-fluid"></p>
+<div id="fig-n4" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="graph_traversal01_files/figure-html/fig-n4-output-2.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;5: Descendants of <code>b</code> using <code>fetch</code> on <code>_nest_parent_</code>.</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Alternatively, we can use the <code>!parent</code> query parser to similar effect:</p>
@@ -621,7 +631,12 @@ having(
 )</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="graph_traversal01_files/figure-html/cell-6-output-2.svg" class="img-fluid"></p>
+<div id="fig-n5" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="graph_traversal01_files/figure-html/fig-n5-output-2.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;6: Descendants of <code>b</code> using the <code>!parent</code> query parser on nodes emitted by graph traversal.</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -683,7 +698,12 @@ having(
 )</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="graph_traversal01_files/figure-html/cell-7-output-2.svg" class="img-fluid"></p>
+<div id="fig-n6" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="graph_traversal01_files/figure-html/fig-n6-output-2.svg" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;7: Analyses performed on derivatives of <code>a</code>.</figcaption><p></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -753,7 +773,7 @@ having(
       },
       {
         "EOF": true,
-        "RESPONSE_TIME": 14
+        "RESPONSE_TIME": 15
       }
     ]
   }
@@ -1153,7 +1173,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-154"><a href="#cb24-154"></a><span class="in">)</span></span>
 <span id="cb24-155"><a href="#cb24-155"></a><span class="in">```</span></span>
 <span id="cb24-156"><a href="#cb24-156"></a></span>
-<span id="cb24-157"><a href="#cb24-157"></a>An alternative, when using streaming expressesions is to use the <span class="co">[</span><span class="ot">`fetch`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#fetch)</span> stream decorator:</span>
+<span id="cb24-157"><a href="#cb24-157"></a>An alternative, when using streaming expressions is to use the <span class="co">[</span><span class="ot">`fetch`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#fetch)</span> stream decorator:</span>
 <span id="cb24-158"><a href="#cb24-158"></a></span>
 <span id="cb24-159"><a href="#cb24-159"></a><span class="in">```</span></span>
 <span id="cb24-160"><a href="#cb24-160"></a><span class="in">fetch(COLLECTION,</span></span>
@@ -1182,7 +1202,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-183"><a href="#cb24-183"></a></span>
 <span id="cb24-186"><a href="#cb24-186"></a><span class="in">```{python}</span></span>
 <span id="cb24-187"><a href="#cb24-187"></a><span class="co">#| label: fig-n1</span></span>
-<span id="cb24-188"><a href="#cb24-188"></a><span class="co">#| fig-cap: "A line plot on a polar axis"</span></span>
+<span id="cb24-188"><a href="#cb24-188"></a><span class="co">#| fig-cap: "Ancestors using `join` on the edge target."</span></span>
 <span id="cb24-189"><a href="#cb24-189"></a></span>
 <span id="cb24-190"><a href="#cb24-190"></a><span class="im">import</span> example_graph</span>
 <span id="cb24-191"><a href="#cb24-191"></a><span class="im">import</span> graphutzing</span>
@@ -1210,7 +1230,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-213"><a href="#cb24-213"></a>The second uses the <span class="in">`fetch`</span> stream decorator, see @fig-n2:</span>
 <span id="cb24-216"><a href="#cb24-216"></a><span class="in">```{python}</span></span>
 <span id="cb24-217"><a href="#cb24-217"></a><span class="co">#| label: fig-n2</span></span>
-<span id="cb24-218"><a href="#cb24-218"></a><span class="co">#| fig-cap: "A line plot on a polar axis"</span></span>
+<span id="cb24-218"><a href="#cb24-218"></a><span class="co">#| fig-cap: "Ancestors using `fetch` from the edge target."</span></span>
 <span id="cb24-219"><a href="#cb24-219"></a></span>
 <span id="cb24-220"><a href="#cb24-220"></a>ex1 <span class="op">=</span> <span class="st">'''search(reltest,</span></span>
 <span id="cb24-221"><a href="#cb24-221"></a><span class="st">        q="{!graph </span></span>
@@ -1240,167 +1260,175 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-245"><a href="#cb24-245"></a>In this case, documents that are the ancestor of <span class="in">`ccc`</span> are found by an ancestor graph traversal, then only the documents from that set that are samples (<span class="in">`is_s:sample`</span>) are returned.</span>
 <span id="cb24-246"><a href="#cb24-246"></a></span>
 <span id="cb24-249"><a href="#cb24-249"></a><span class="in">```{python}</span></span>
-<span id="cb24-250"><a href="#cb24-250"></a>ex1 <span class="op">=</span> <span class="st">'''    search(reltest, </span></span>
-<span id="cb24-251"><a href="#cb24-251"></a><span class="st">            q="{!graph </span></span>
-<span id="cb24-252"><a href="#cb24-252"></a><span class="st">                to=target_s </span></span>
-<span id="cb24-253"><a href="#cb24-253"></a><span class="st">                from=_nest_parent_</span></span>
-<span id="cb24-254"><a href="#cb24-254"></a><span class="st">            }(_nest_parent_:ccc)",</span></span>
-<span id="cb24-255"><a href="#cb24-255"></a><span class="st">            fl="*,target_s,_nest_parent_,[child]",</span></span>
-<span id="cb24-256"><a href="#cb24-256"></a><span class="st">            rows=100</span></span>
-<span id="cb24-257"><a href="#cb24-257"></a><span class="st">        )'''</span></span>
-<span id="cb24-258"><a href="#cb24-258"></a><span class="co"># Using the fetch operation to retrieve fields from documents found in the graph walk</span></span>
-<span id="cb24-259"><a href="#cb24-259"></a>ex2 <span class="op">=</span> <span class="ss">f'''fetch(reltest,</span></span>
-<span id="cb24-260"><a href="#cb24-260"></a><span class="ss">    </span><span class="sc">{</span>ex1<span class="sc">}</span><span class="ss">,</span></span>
-<span id="cb24-261"><a href="#cb24-261"></a><span class="ss">        fl="id,name_t,is_s,[child]",</span></span>
-<span id="cb24-262"><a href="#cb24-262"></a><span class="ss">        on="target_s=id"</span></span>
-<span id="cb24-263"><a href="#cb24-263"></a><span class="ss">    )'''</span></span>
-<span id="cb24-264"><a href="#cb24-264"></a>ex3 <span class="op">=</span> <span class="ss">f'''</span></span>
-<span id="cb24-265"><a href="#cb24-265"></a><span class="ss">having(</span></span>
-<span id="cb24-266"><a href="#cb24-266"></a><span class="ss">    </span><span class="sc">{</span>ex2<span class="sc">}</span><span class="ss">, </span></span>
-<span id="cb24-267"><a href="#cb24-267"></a><span class="ss">    eq(is_s,"sample")</span></span>
-<span id="cb24-268"><a href="#cb24-268"></a><span class="ss">)'''</span></span>
-<span id="cb24-269"><a href="#cb24-269"></a><span class="bu">print</span>(ex3)</span>
-<span id="cb24-270"><a href="#cb24-270"></a>res <span class="op">=</span> solr.sendExpr(ex3)</span>
-<span id="cb24-271"><a href="#cb24-271"></a>solr.render(example_graph.docs, res)</span>
-<span id="cb24-272"><a href="#cb24-272"></a><span class="in">```</span></span>
-<span id="cb24-273"><a href="#cb24-273"></a></span>
-<span id="cb24-274"><a href="#cb24-274"></a><span class="fu">## Descendants</span></span>
+<span id="cb24-250"><a href="#cb24-250"></a><span class="co">#| label: fig-n3</span></span>
+<span id="cb24-251"><a href="#cb24-251"></a><span class="co">#| fig-cap: "Samples contributing to publication `ccc`."</span></span>
+<span id="cb24-252"><a href="#cb24-252"></a>ex1 <span class="op">=</span> <span class="st">'''    search(reltest, </span></span>
+<span id="cb24-253"><a href="#cb24-253"></a><span class="st">            q="{!graph </span></span>
+<span id="cb24-254"><a href="#cb24-254"></a><span class="st">                to=target_s </span></span>
+<span id="cb24-255"><a href="#cb24-255"></a><span class="st">                from=_nest_parent_</span></span>
+<span id="cb24-256"><a href="#cb24-256"></a><span class="st">            }(_nest_parent_:ccc)",</span></span>
+<span id="cb24-257"><a href="#cb24-257"></a><span class="st">            fl="*,target_s,_nest_parent_,[child]",</span></span>
+<span id="cb24-258"><a href="#cb24-258"></a><span class="st">            rows=100</span></span>
+<span id="cb24-259"><a href="#cb24-259"></a><span class="st">        )'''</span></span>
+<span id="cb24-260"><a href="#cb24-260"></a><span class="co"># Using the fetch operation to retrieve fields from documents found in the graph walk</span></span>
+<span id="cb24-261"><a href="#cb24-261"></a>ex2 <span class="op">=</span> <span class="ss">f'''fetch(reltest,</span></span>
+<span id="cb24-262"><a href="#cb24-262"></a><span class="ss">    </span><span class="sc">{</span>ex1<span class="sc">}</span><span class="ss">,</span></span>
+<span id="cb24-263"><a href="#cb24-263"></a><span class="ss">        fl="id,name_t,is_s,[child]",</span></span>
+<span id="cb24-264"><a href="#cb24-264"></a><span class="ss">        on="target_s=id"</span></span>
+<span id="cb24-265"><a href="#cb24-265"></a><span class="ss">    )'''</span></span>
+<span id="cb24-266"><a href="#cb24-266"></a>ex3 <span class="op">=</span> <span class="ss">f'''</span></span>
+<span id="cb24-267"><a href="#cb24-267"></a><span class="ss">having(</span></span>
+<span id="cb24-268"><a href="#cb24-268"></a><span class="ss">    </span><span class="sc">{</span>ex2<span class="sc">}</span><span class="ss">, </span></span>
+<span id="cb24-269"><a href="#cb24-269"></a><span class="ss">    eq(is_s,"sample")</span></span>
+<span id="cb24-270"><a href="#cb24-270"></a><span class="ss">)'''</span></span>
+<span id="cb24-271"><a href="#cb24-271"></a><span class="bu">print</span>(ex3)</span>
+<span id="cb24-272"><a href="#cb24-272"></a>res <span class="op">=</span> solr.sendExpr(ex3)</span>
+<span id="cb24-273"><a href="#cb24-273"></a>solr.render(example_graph.docs, res)</span>
+<span id="cb24-274"><a href="#cb24-274"></a><span class="in">```</span></span>
 <span id="cb24-275"><a href="#cb24-275"></a></span>
-<span id="cb24-276"><a href="#cb24-276"></a>Finding Descendants is similar to finding ancestors, except we are walking the graph in the opposite direction, so the <span class="in">`to`</span> and <span class="in">`from`</span> properties of the <span class="in">`!graph`</span> expression are reversed. Since the Descendants contain the nested relations, retrieving the parent document is a bit simpler since it is just the documents with <span class="in">`id`</span> matching <span class="in">`_nest_parent_`</span>.</span>
+<span id="cb24-276"><a href="#cb24-276"></a><span class="fu">## Descendants</span></span>
 <span id="cb24-277"><a href="#cb24-277"></a></span>
-<span id="cb24-278"><a href="#cb24-278"></a><span class="fu">### Descendants of a node</span></span>
+<span id="cb24-278"><a href="#cb24-278"></a>Finding Descendants is similar to finding ancestors, except we are walking the graph in the opposite direction, so the <span class="in">`to`</span> and <span class="in">`from`</span> properties of the <span class="in">`!graph`</span> expression are reversed. Since the Descendants contain the nested relations, retrieving the parent document is a bit simpler since it is just the documents with <span class="in">`id`</span> matching <span class="in">`_nest_parent_`</span>.</span>
 <span id="cb24-279"><a href="#cb24-279"></a></span>
-<span id="cb24-280"><a href="#cb24-280"></a>In this example derivatives (i.e. Descendants) of <span class="in">`id:b`</span> are found.</span>
+<span id="cb24-280"><a href="#cb24-280"></a><span class="fu">### Descendants of a node</span></span>
 <span id="cb24-281"><a href="#cb24-281"></a></span>
-<span id="cb24-284"><a href="#cb24-284"></a><span class="in">```{python}</span></span>
-<span id="cb24-285"><a href="#cb24-285"></a>ex1 <span class="op">=</span> <span class="st">'''    search(</span></span>
-<span id="cb24-286"><a href="#cb24-286"></a><span class="st">        reltest,</span></span>
-<span id="cb24-287"><a href="#cb24-287"></a><span class="st">        q="{!graph </span></span>
-<span id="cb24-288"><a href="#cb24-288"></a><span class="st">            to=_nest_parent_ </span></span>
-<span id="cb24-289"><a href="#cb24-289"></a><span class="st">            from=target_s</span></span>
-<span id="cb24-290"><a href="#cb24-290"></a><span class="st">        }target_s:b",</span></span>
-<span id="cb24-291"><a href="#cb24-291"></a><span class="st">        fl="*",</span></span>
-<span id="cb24-292"><a href="#cb24-292"></a><span class="st">        rows=100</span></span>
-<span id="cb24-293"><a href="#cb24-293"></a><span class="st">    )'''</span></span>
-<span id="cb24-294"><a href="#cb24-294"></a>ex2 <span class="op">=</span> <span class="ss">f'''fetch(</span></span>
-<span id="cb24-295"><a href="#cb24-295"></a><span class="ss">    reltest,</span></span>
-<span id="cb24-296"><a href="#cb24-296"></a><span class="ss">    </span><span class="sc">{</span>ex1<span class="sc">}</span><span class="ss">,</span></span>
-<span id="cb24-297"><a href="#cb24-297"></a><span class="ss">    fl="id,name_t,[child]",</span></span>
-<span id="cb24-298"><a href="#cb24-298"></a><span class="ss">    on="_nest_parent_=id"</span></span>
-<span id="cb24-299"><a href="#cb24-299"></a><span class="ss">)</span></span>
-<span id="cb24-300"><a href="#cb24-300"></a><span class="ss">'''</span></span>
-<span id="cb24-301"><a href="#cb24-301"></a><span class="bu">print</span>(ex2)</span>
-<span id="cb24-302"><a href="#cb24-302"></a>res <span class="op">=</span> solr.sendExpr(ex2)</span>
-<span id="cb24-303"><a href="#cb24-303"></a>solr.render(example_graph.docs, res)</span>
-<span id="cb24-304"><a href="#cb24-304"></a><span class="in">```</span></span>
-<span id="cb24-305"><a href="#cb24-305"></a></span>
-<span id="cb24-306"><a href="#cb24-306"></a>Alternatively, we can use the <span class="in">`!parent`</span> query parser to similar effect:</span>
-<span id="cb24-307"><a href="#cb24-307"></a></span>
-<span id="cb24-310"><a href="#cb24-310"></a><span class="in">```{python}</span></span>
-<span id="cb24-311"><a href="#cb24-311"></a>ex1 <span class="op">=</span> <span class="st">'''search(reltest,</span></span>
-<span id="cb24-312"><a href="#cb24-312"></a><span class="st">    q="{!parent which='*:* -_nest_path_:*'}({!graph </span></span>
-<span id="cb24-313"><a href="#cb24-313"></a><span class="st">        to=_nest_parent_ </span></span>
-<span id="cb24-314"><a href="#cb24-314"></a><span class="st">        from=target_s</span></span>
-<span id="cb24-315"><a href="#cb24-315"></a><span class="st">    }target_s:b)",</span></span>
-<span id="cb24-316"><a href="#cb24-316"></a><span class="st">    fl="*",</span></span>
-<span id="cb24-317"><a href="#cb24-317"></a><span class="st">    rows=100</span></span>
-<span id="cb24-318"><a href="#cb24-318"></a><span class="st">)'''</span></span>
-<span id="cb24-319"><a href="#cb24-319"></a><span class="bu">print</span>(ex1)</span>
-<span id="cb24-320"><a href="#cb24-320"></a>res <span class="op">=</span> solr.sendExpr(ex1)</span>
-<span id="cb24-321"><a href="#cb24-321"></a>solr.render(example_graph.docs, res)</span>
-<span id="cb24-322"><a href="#cb24-322"></a><span class="in">```</span></span>
-<span id="cb24-323"><a href="#cb24-323"></a></span>
-<span id="cb24-324"><a href="#cb24-324"></a></span>
-<span id="cb24-325"><a href="#cb24-325"></a><span class="fu">### Descendants matching a particular type</span></span>
-<span id="cb24-326"><a href="#cb24-326"></a></span>
-<span id="cb24-327"><a href="#cb24-327"></a>In this case we are looking for analyses that were performed on material derived from sample <span class="in">`a`</span>. </span>
-<span id="cb24-328"><a href="#cb24-328"></a></span>
-<span id="cb24-329"><a href="#cb24-329"></a>We follow the Descendants graph, but limit the traversal to only include <span class="in">`sample-of`</span> or <span class="in">`analysis-of`</span> relations to limit the reduce the scope of traversal. This exclusion is optional, but included here to illustrate the effect of the <span class="in">`traversal_filter`</span> option. The resulting set of nodes includes samples and analyses. The analysis nodes are selected from that set using the <span class="in">`having`</span> clause.</span>
+<span id="cb24-282"><a href="#cb24-282"></a>In this example derivatives (i.e. Descendants) of <span class="in">`id:b`</span> are found.</span>
+<span id="cb24-283"><a href="#cb24-283"></a></span>
+<span id="cb24-286"><a href="#cb24-286"></a><span class="in">```{python}</span></span>
+<span id="cb24-287"><a href="#cb24-287"></a><span class="co">#| label: fig-n4</span></span>
+<span id="cb24-288"><a href="#cb24-288"></a><span class="co">#| fig-cap: "Descendants of `b` using `fetch` on `_nest_parent_`."</span></span>
+<span id="cb24-289"><a href="#cb24-289"></a>ex1 <span class="op">=</span> <span class="st">'''    search(</span></span>
+<span id="cb24-290"><a href="#cb24-290"></a><span class="st">        reltest,</span></span>
+<span id="cb24-291"><a href="#cb24-291"></a><span class="st">        q="{!graph </span></span>
+<span id="cb24-292"><a href="#cb24-292"></a><span class="st">            to=_nest_parent_ </span></span>
+<span id="cb24-293"><a href="#cb24-293"></a><span class="st">            from=target_s</span></span>
+<span id="cb24-294"><a href="#cb24-294"></a><span class="st">        }target_s:b",</span></span>
+<span id="cb24-295"><a href="#cb24-295"></a><span class="st">        fl="*",</span></span>
+<span id="cb24-296"><a href="#cb24-296"></a><span class="st">        rows=100</span></span>
+<span id="cb24-297"><a href="#cb24-297"></a><span class="st">    )'''</span></span>
+<span id="cb24-298"><a href="#cb24-298"></a>ex2 <span class="op">=</span> <span class="ss">f'''fetch(</span></span>
+<span id="cb24-299"><a href="#cb24-299"></a><span class="ss">    reltest,</span></span>
+<span id="cb24-300"><a href="#cb24-300"></a><span class="ss">    </span><span class="sc">{</span>ex1<span class="sc">}</span><span class="ss">,</span></span>
+<span id="cb24-301"><a href="#cb24-301"></a><span class="ss">    fl="id,name_t,[child]",</span></span>
+<span id="cb24-302"><a href="#cb24-302"></a><span class="ss">    on="_nest_parent_=id"</span></span>
+<span id="cb24-303"><a href="#cb24-303"></a><span class="ss">)</span></span>
+<span id="cb24-304"><a href="#cb24-304"></a><span class="ss">'''</span></span>
+<span id="cb24-305"><a href="#cb24-305"></a><span class="bu">print</span>(ex2)</span>
+<span id="cb24-306"><a href="#cb24-306"></a>res <span class="op">=</span> solr.sendExpr(ex2)</span>
+<span id="cb24-307"><a href="#cb24-307"></a>solr.render(example_graph.docs, res)</span>
+<span id="cb24-308"><a href="#cb24-308"></a><span class="in">```</span></span>
+<span id="cb24-309"><a href="#cb24-309"></a></span>
+<span id="cb24-310"><a href="#cb24-310"></a>Alternatively, we can use the <span class="in">`!parent`</span> query parser to similar effect:</span>
+<span id="cb24-311"><a href="#cb24-311"></a></span>
+<span id="cb24-314"><a href="#cb24-314"></a><span class="in">```{python}</span></span>
+<span id="cb24-315"><a href="#cb24-315"></a><span class="co">#| label: fig-n5</span></span>
+<span id="cb24-316"><a href="#cb24-316"></a><span class="co">#| fig-cap: "Descendants of `b` using the `!parent` query parser on nodes emitted by graph traversal."</span></span>
+<span id="cb24-317"><a href="#cb24-317"></a>ex1 <span class="op">=</span> <span class="st">'''search(reltest,</span></span>
+<span id="cb24-318"><a href="#cb24-318"></a><span class="st">    q="{!parent which='*:* -_nest_path_:*'}({!graph </span></span>
+<span id="cb24-319"><a href="#cb24-319"></a><span class="st">        to=_nest_parent_ </span></span>
+<span id="cb24-320"><a href="#cb24-320"></a><span class="st">        from=target_s</span></span>
+<span id="cb24-321"><a href="#cb24-321"></a><span class="st">    }target_s:b)",</span></span>
+<span id="cb24-322"><a href="#cb24-322"></a><span class="st">    fl="*",</span></span>
+<span id="cb24-323"><a href="#cb24-323"></a><span class="st">    rows=100</span></span>
+<span id="cb24-324"><a href="#cb24-324"></a><span class="st">)'''</span></span>
+<span id="cb24-325"><a href="#cb24-325"></a><span class="bu">print</span>(ex1)</span>
+<span id="cb24-326"><a href="#cb24-326"></a>res <span class="op">=</span> solr.sendExpr(ex1)</span>
+<span id="cb24-327"><a href="#cb24-327"></a>solr.render(example_graph.docs, res)</span>
+<span id="cb24-328"><a href="#cb24-328"></a><span class="in">```</span></span>
+<span id="cb24-329"><a href="#cb24-329"></a></span>
 <span id="cb24-330"><a href="#cb24-330"></a></span>
-<span id="cb24-333"><a href="#cb24-333"></a><span class="in">```{python}</span></span>
-<span id="cb24-334"><a href="#cb24-334"></a><span class="co"># Start with a as the target of a relation</span></span>
-<span id="cb24-335"><a href="#cb24-335"></a>q1 <span class="op">=</span> <span class="st">'target_s:a'</span></span>
-<span id="cb24-336"><a href="#cb24-336"></a><span class="co"># Traverse the graph starting from q1, limit relations being followed to sample-of and analysis-of</span></span>
-<span id="cb24-337"><a href="#cb24-337"></a>q2 <span class="op">=</span> <span class="st">'{!graph to=_nest_parent_ from=target_s traversal_filter="relation_type_s:[subsample-of OR analysis-of]"}'</span></span>
-<span id="cb24-338"><a href="#cb24-338"></a>ex1 <span class="op">=</span> <span class="st">'''search(</span></span>
-<span id="cb24-339"><a href="#cb24-339"></a><span class="st">            reltest,</span></span>
-<span id="cb24-340"><a href="#cb24-340"></a><span class="st">            q="{!graph </span></span>
-<span id="cb24-341"><a href="#cb24-341"></a><span class="st">                to=_nest_parent_ </span></span>
-<span id="cb24-342"><a href="#cb24-342"></a><span class="st">                from=target_s </span></span>
-<span id="cb24-343"><a href="#cb24-343"></a><span class="st">                traversal_filter='relation_type_s:[subsample-of OR analysis-of]'</span></span>
-<span id="cb24-344"><a href="#cb24-344"></a><span class="st">            }target_s:a",</span></span>
-<span id="cb24-345"><a href="#cb24-345"></a><span class="st">            fl="*",</span></span>
-<span id="cb24-346"><a href="#cb24-346"></a><span class="st">            rows=100</span></span>
-<span id="cb24-347"><a href="#cb24-347"></a><span class="st">        )'''</span></span>
-<span id="cb24-348"><a href="#cb24-348"></a><span class="co"># Fetch the records</span></span>
-<span id="cb24-349"><a href="#cb24-349"></a>ex2 <span class="op">=</span> <span class="ss">f'''fetch(</span></span>
-<span id="cb24-350"><a href="#cb24-350"></a><span class="ss">        reltest,</span></span>
-<span id="cb24-351"><a href="#cb24-351"></a><span class="ss">        </span><span class="sc">{</span>ex1<span class="sc">}</span><span class="ss">,</span></span>
-<span id="cb24-352"><a href="#cb24-352"></a><span class="ss">        fl="id,name_t,is_s,[child]",</span></span>
-<span id="cb24-353"><a href="#cb24-353"></a><span class="ss">        on="_nest_parent_=id"</span></span>
-<span id="cb24-354"><a href="#cb24-354"></a><span class="ss">    )'''</span></span>
-<span id="cb24-355"><a href="#cb24-355"></a><span class="co"># And include only records that are an analysis</span></span>
-<span id="cb24-356"><a href="#cb24-356"></a>ex3 <span class="op">=</span> <span class="ss">f'''having(</span></span>
-<span id="cb24-357"><a href="#cb24-357"></a><span class="ss">    </span><span class="sc">{</span>ex2<span class="sc">}</span><span class="ss">, </span></span>
-<span id="cb24-358"><a href="#cb24-358"></a><span class="ss">    eq(is_s,"analysis")</span></span>
-<span id="cb24-359"><a href="#cb24-359"></a><span class="ss">)'''</span></span>
-<span id="cb24-360"><a href="#cb24-360"></a><span class="bu">print</span>(ex3)</span>
-<span id="cb24-361"><a href="#cb24-361"></a>res <span class="op">=</span> solr.sendExpr(ex3)</span>
-<span id="cb24-362"><a href="#cb24-362"></a>solr.render(example_graph.docs, res)</span>
-<span id="cb24-363"><a href="#cb24-363"></a><span class="in">```</span></span>
-<span id="cb24-364"><a href="#cb24-364"></a></span>
-<span id="cb24-365"><a href="#cb24-365"></a><span class="fu">## Graph Math</span></span>
-<span id="cb24-366"><a href="#cb24-366"></a></span>
-<span id="cb24-367"><a href="#cb24-367"></a><span class="fu">### Union of two graphs</span></span>
-<span id="cb24-368"><a href="#cb24-368"></a></span>
-<span id="cb24-369"><a href="#cb24-369"></a>In the simplest case, this is following ancestors or descendants from two or more root nodes. In the case where there are two graphs constructed differently and we need the set of all nodes included in both, then we can OR the two queries and if necessary apply a Unique stream decorator.</span>
-<span id="cb24-370"><a href="#cb24-370"></a></span>
-<span id="cb24-371"><a href="#cb24-371"></a><span class="fu">### Difference of two graphs</span></span>
+<span id="cb24-331"><a href="#cb24-331"></a><span class="fu">### Descendants matching a particular type</span></span>
+<span id="cb24-332"><a href="#cb24-332"></a></span>
+<span id="cb24-333"><a href="#cb24-333"></a>In this case we are looking for analyses that were performed on material derived from sample <span class="in">`a`</span>. </span>
+<span id="cb24-334"><a href="#cb24-334"></a></span>
+<span id="cb24-335"><a href="#cb24-335"></a>We follow the Descendants graph, but limit the traversal to only include <span class="in">`sample-of`</span> or <span class="in">`analysis-of`</span> relations to limit the reduce the scope of traversal. This exclusion is optional, but included here to illustrate the effect of the <span class="in">`traversal_filter`</span> option. The resulting set of nodes includes samples and analyses. The analysis nodes are selected from that set using the <span class="in">`having`</span> clause.</span>
+<span id="cb24-336"><a href="#cb24-336"></a></span>
+<span id="cb24-339"><a href="#cb24-339"></a><span class="in">```{python}</span></span>
+<span id="cb24-340"><a href="#cb24-340"></a><span class="co">#| label: fig-n6</span></span>
+<span id="cb24-341"><a href="#cb24-341"></a><span class="co">#| fig-cap: "Analyses performed on derivatives of `a`."</span></span>
+<span id="cb24-342"><a href="#cb24-342"></a><span class="co"># Start with a as the target of a relation</span></span>
+<span id="cb24-343"><a href="#cb24-343"></a>q1 <span class="op">=</span> <span class="st">'target_s:a'</span></span>
+<span id="cb24-344"><a href="#cb24-344"></a><span class="co"># Traverse the graph starting from q1, limit relations being followed to sample-of and analysis-of</span></span>
+<span id="cb24-345"><a href="#cb24-345"></a>q2 <span class="op">=</span> <span class="st">'{!graph to=_nest_parent_ from=target_s traversal_filter="relation_type_s:[subsample-of OR analysis-of]"}'</span></span>
+<span id="cb24-346"><a href="#cb24-346"></a>ex1 <span class="op">=</span> <span class="st">'''search(</span></span>
+<span id="cb24-347"><a href="#cb24-347"></a><span class="st">            reltest,</span></span>
+<span id="cb24-348"><a href="#cb24-348"></a><span class="st">            q="{!graph </span></span>
+<span id="cb24-349"><a href="#cb24-349"></a><span class="st">                to=_nest_parent_ </span></span>
+<span id="cb24-350"><a href="#cb24-350"></a><span class="st">                from=target_s </span></span>
+<span id="cb24-351"><a href="#cb24-351"></a><span class="st">                traversal_filter='relation_type_s:[subsample-of OR analysis-of]'</span></span>
+<span id="cb24-352"><a href="#cb24-352"></a><span class="st">            }target_s:a",</span></span>
+<span id="cb24-353"><a href="#cb24-353"></a><span class="st">            fl="*",</span></span>
+<span id="cb24-354"><a href="#cb24-354"></a><span class="st">            rows=100</span></span>
+<span id="cb24-355"><a href="#cb24-355"></a><span class="st">        )'''</span></span>
+<span id="cb24-356"><a href="#cb24-356"></a><span class="co"># Fetch the records</span></span>
+<span id="cb24-357"><a href="#cb24-357"></a>ex2 <span class="op">=</span> <span class="ss">f'''fetch(</span></span>
+<span id="cb24-358"><a href="#cb24-358"></a><span class="ss">        reltest,</span></span>
+<span id="cb24-359"><a href="#cb24-359"></a><span class="ss">        </span><span class="sc">{</span>ex1<span class="sc">}</span><span class="ss">,</span></span>
+<span id="cb24-360"><a href="#cb24-360"></a><span class="ss">        fl="id,name_t,is_s,[child]",</span></span>
+<span id="cb24-361"><a href="#cb24-361"></a><span class="ss">        on="_nest_parent_=id"</span></span>
+<span id="cb24-362"><a href="#cb24-362"></a><span class="ss">    )'''</span></span>
+<span id="cb24-363"><a href="#cb24-363"></a><span class="co"># And include only records that are an analysis</span></span>
+<span id="cb24-364"><a href="#cb24-364"></a>ex3 <span class="op">=</span> <span class="ss">f'''having(</span></span>
+<span id="cb24-365"><a href="#cb24-365"></a><span class="ss">    </span><span class="sc">{</span>ex2<span class="sc">}</span><span class="ss">, </span></span>
+<span id="cb24-366"><a href="#cb24-366"></a><span class="ss">    eq(is_s,"analysis")</span></span>
+<span id="cb24-367"><a href="#cb24-367"></a><span class="ss">)'''</span></span>
+<span id="cb24-368"><a href="#cb24-368"></a><span class="bu">print</span>(ex3)</span>
+<span id="cb24-369"><a href="#cb24-369"></a>res <span class="op">=</span> solr.sendExpr(ex3)</span>
+<span id="cb24-370"><a href="#cb24-370"></a>solr.render(example_graph.docs, res)</span>
+<span id="cb24-371"><a href="#cb24-371"></a><span class="in">```</span></span>
 <span id="cb24-372"><a href="#cb24-372"></a></span>
-<span id="cb24-373"><a href="#cb24-373"></a>Use the conjunction stream decorator.</span>
+<span id="cb24-373"><a href="#cb24-373"></a><span class="fu">## Graph Math</span></span>
 <span id="cb24-374"><a href="#cb24-374"></a></span>
-<span id="cb24-375"><a href="#cb24-375"></a><span class="fu">### Number of nodes in a graph</span></span>
+<span id="cb24-375"><a href="#cb24-375"></a><span class="fu">### Union of two graphs</span></span>
 <span id="cb24-376"><a href="#cb24-376"></a></span>
-<span id="cb24-377"><a href="#cb24-377"></a>Can be achieved programmatically by counting the nodes or by applying an operation such as <span class="co">[</span><span class="ot">`rollup`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#rollup)</span> using a <span class="in">`count(*)`</span> metric.</span>
+<span id="cb24-377"><a href="#cb24-377"></a>In the simplest case, this is following ancestors or descendants from two or more root nodes. In the case where there are two graphs constructed differently and we need the set of all nodes included in both, then we can OR the two queries and if necessary apply a Unique stream decorator.</span>
 <span id="cb24-378"><a href="#cb24-378"></a></span>
-<span id="cb24-379"><a href="#cb24-379"></a><span class="fu">## Other Solr graph methods</span></span>
+<span id="cb24-379"><a href="#cb24-379"></a><span class="fu">### Difference of two graphs</span></span>
 <span id="cb24-380"><a href="#cb24-380"></a></span>
-<span id="cb24-381"><a href="#cb24-381"></a><span class="fu">### `shortestPath`</span></span>
+<span id="cb24-381"><a href="#cb24-381"></a>Use the conjunction stream decorator.</span>
 <span id="cb24-382"><a href="#cb24-382"></a></span>
-<span id="cb24-383"><a href="#cb24-383"></a>The <span class="co">[</span><span class="ot">`shortestPath`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/stream-source-reference.html#shortestpath)</span> stream source computes the paths between two node, returned as a list of tuples. Each tuple contains the node IDs on a path between the starting nodes.</span>
+<span id="cb24-383"><a href="#cb24-383"></a><span class="fu">### Number of nodes in a graph</span></span>
 <span id="cb24-384"><a href="#cb24-384"></a></span>
-<span id="cb24-387"><a href="#cb24-387"></a><span class="in">```{python}</span></span>
-<span id="cb24-388"><a href="#cb24-388"></a>expr <span class="op">=</span> <span class="st">'''shortestPath(</span></span>
-<span id="cb24-389"><a href="#cb24-389"></a><span class="st">    reltest,</span></span>
-<span id="cb24-390"><a href="#cb24-390"></a><span class="st">    from="ddd",</span></span>
-<span id="cb24-391"><a href="#cb24-391"></a><span class="st">    to="a",</span></span>
-<span id="cb24-392"><a href="#cb24-392"></a><span class="st">    edge="_nest_parent_=target_s",</span></span>
-<span id="cb24-393"><a href="#cb24-393"></a><span class="st">    maxDepth=50</span></span>
-<span id="cb24-394"><a href="#cb24-394"></a><span class="st">)'''</span></span>
-<span id="cb24-395"><a href="#cb24-395"></a><span class="bu">print</span>(expr)</span>
-<span id="cb24-396"><a href="#cb24-396"></a>res <span class="op">=</span> solr.sendExpr(expr)</span>
-<span id="cb24-397"><a href="#cb24-397"></a>solr.render(example_graph.docs, res, show_docs<span class="op">=</span><span class="va">True</span>, show_graph<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb24-398"><a href="#cb24-398"></a><span class="in">```</span></span>
-<span id="cb24-399"><a href="#cb24-399"></a></span>
-<span id="cb24-400"><a href="#cb24-400"></a><span class="fu">### `nodes`</span></span>
-<span id="cb24-401"><a href="#cb24-401"></a></span>
-<span id="cb24-402"><a href="#cb24-402"></a>The <span class="co">[</span><span class="ot">`nodes`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/graph-traversal.html)</span> stream source does graph traversal, but does not iterate across all nodes of the graph. Instead the operation traverses one level at a time. <span class="in">`nodes`</span> sources may be nested to reach deeper into a graph.</span>
-<span id="cb24-405"><a href="#cb24-405"></a><span class="in">```{python}</span></span>
-<span id="cb24-406"><a href="#cb24-406"></a>expr <span class="op">=</span> <span class="st">'''nodes(reltest,</span></span>
-<span id="cb24-407"><a href="#cb24-407"></a><span class="st">    nodes(</span></span>
-<span id="cb24-408"><a href="#cb24-408"></a><span class="st">        reltest,</span></span>
-<span id="cb24-409"><a href="#cb24-409"></a><span class="st">        walk="ddd-&gt;_nest_parent_",</span></span>
-<span id="cb24-410"><a href="#cb24-410"></a><span class="st">        gather="target_s",</span></span>
-<span id="cb24-411"><a href="#cb24-411"></a><span class="st">        scatter="branches, leaves"</span></span>
-<span id="cb24-412"><a href="#cb24-412"></a><span class="st">    ),</span></span>
-<span id="cb24-413"><a href="#cb24-413"></a><span class="st">    walk="node-&gt;_nest_parent_",</span></span>
-<span id="cb24-414"><a href="#cb24-414"></a><span class="st">    gather="target_s",</span></span>
-<span id="cb24-415"><a href="#cb24-415"></a><span class="st">    scatter="branches, leaves"</span></span>
-<span id="cb24-416"><a href="#cb24-416"></a><span class="st">)'''</span></span>
-<span id="cb24-417"><a href="#cb24-417"></a><span class="bu">print</span>(expr)</span>
-<span id="cb24-418"><a href="#cb24-418"></a>res <span class="op">=</span> solr.sendExpr(expr)</span>
-<span id="cb24-419"><a href="#cb24-419"></a>solr.render(example_graph.docs, res, show_docs<span class="op">=</span><span class="va">True</span>, show_graph<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb24-420"><a href="#cb24-420"></a><span class="in">```</span></span>
+<span id="cb24-385"><a href="#cb24-385"></a>Can be achieved programmatically by counting the nodes or by applying an operation such as <span class="co">[</span><span class="ot">`rollup`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#rollup)</span> using a <span class="in">`count(*)`</span> metric.</span>
+<span id="cb24-386"><a href="#cb24-386"></a></span>
+<span id="cb24-387"><a href="#cb24-387"></a><span class="fu">## Other Solr graph methods</span></span>
+<span id="cb24-388"><a href="#cb24-388"></a></span>
+<span id="cb24-389"><a href="#cb24-389"></a><span class="fu">### `shortestPath`</span></span>
+<span id="cb24-390"><a href="#cb24-390"></a></span>
+<span id="cb24-391"><a href="#cb24-391"></a>The <span class="co">[</span><span class="ot">`shortestPath`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/stream-source-reference.html#shortestpath)</span> stream source computes the paths between two node, returned as a list of tuples. Each tuple contains the node IDs on a path between the starting nodes.</span>
+<span id="cb24-392"><a href="#cb24-392"></a></span>
+<span id="cb24-395"><a href="#cb24-395"></a><span class="in">```{python}</span></span>
+<span id="cb24-396"><a href="#cb24-396"></a>expr <span class="op">=</span> <span class="st">'''shortestPath(</span></span>
+<span id="cb24-397"><a href="#cb24-397"></a><span class="st">    reltest,</span></span>
+<span id="cb24-398"><a href="#cb24-398"></a><span class="st">    from="ddd",</span></span>
+<span id="cb24-399"><a href="#cb24-399"></a><span class="st">    to="a",</span></span>
+<span id="cb24-400"><a href="#cb24-400"></a><span class="st">    edge="_nest_parent_=target_s",</span></span>
+<span id="cb24-401"><a href="#cb24-401"></a><span class="st">    maxDepth=50</span></span>
+<span id="cb24-402"><a href="#cb24-402"></a><span class="st">)'''</span></span>
+<span id="cb24-403"><a href="#cb24-403"></a><span class="bu">print</span>(expr)</span>
+<span id="cb24-404"><a href="#cb24-404"></a>res <span class="op">=</span> solr.sendExpr(expr)</span>
+<span id="cb24-405"><a href="#cb24-405"></a>solr.render(example_graph.docs, res, show_docs<span class="op">=</span><span class="va">True</span>, show_graph<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-406"><a href="#cb24-406"></a><span class="in">```</span></span>
+<span id="cb24-407"><a href="#cb24-407"></a></span>
+<span id="cb24-408"><a href="#cb24-408"></a><span class="fu">### `nodes`</span></span>
+<span id="cb24-409"><a href="#cb24-409"></a></span>
+<span id="cb24-410"><a href="#cb24-410"></a>The <span class="co">[</span><span class="ot">`nodes`</span><span class="co">](https://solr.apache.org/guide/solr/latest/query-guide/graph-traversal.html)</span> stream source does graph traversal, but does not iterate across all nodes of the graph. Instead the operation traverses one level at a time. <span class="in">`nodes`</span> sources may be nested to reach deeper into a graph.</span>
+<span id="cb24-413"><a href="#cb24-413"></a><span class="in">```{python}</span></span>
+<span id="cb24-414"><a href="#cb24-414"></a>expr <span class="op">=</span> <span class="st">'''nodes(reltest,</span></span>
+<span id="cb24-415"><a href="#cb24-415"></a><span class="st">    nodes(</span></span>
+<span id="cb24-416"><a href="#cb24-416"></a><span class="st">        reltest,</span></span>
+<span id="cb24-417"><a href="#cb24-417"></a><span class="st">        walk="ddd-&gt;_nest_parent_",</span></span>
+<span id="cb24-418"><a href="#cb24-418"></a><span class="st">        gather="target_s",</span></span>
+<span id="cb24-419"><a href="#cb24-419"></a><span class="st">        scatter="branches, leaves"</span></span>
+<span id="cb24-420"><a href="#cb24-420"></a><span class="st">    ),</span></span>
+<span id="cb24-421"><a href="#cb24-421"></a><span class="st">    walk="node-&gt;_nest_parent_",</span></span>
+<span id="cb24-422"><a href="#cb24-422"></a><span class="st">    gather="target_s",</span></span>
+<span id="cb24-423"><a href="#cb24-423"></a><span class="st">    scatter="branches, leaves"</span></span>
+<span id="cb24-424"><a href="#cb24-424"></a><span class="st">)'''</span></span>
+<span id="cb24-425"><a href="#cb24-425"></a><span class="bu">print</span>(expr)</span>
+<span id="cb24-426"><a href="#cb24-426"></a>res <span class="op">=</span> solr.sendExpr(expr)</span>
+<span id="cb24-427"><a href="#cb24-427"></a>solr.render(example_graph.docs, res, show_docs<span class="op">=</span><span class="va">True</span>, show_graph<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb24-428"><a href="#cb24-428"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
