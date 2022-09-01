@@ -144,3 +144,165 @@ print(expr)
 res = solr.sendExpr(expr)
 solr.render(example_graph.docs, res)
 ```
+
+## Number of incoming edges
+
+The approach here is to count the number of edges grouped by the target. This can be done by faceting with the `facet` stream source or `drill` combined with a `rollup`.
+
+```{python}
+# Can use facet for this
+expr='''select(
+    facet(reltest,
+        q="target_s:*",
+        buckets="target_s",
+        rows=100,
+        count(*)
+    ),
+    target_s as id,
+    count(*) as cnt
+)'''
+
+#Or drill, which may be a bit more efficient, but results are not sorted
+# number of incoming edges from nodes with name starting with "sub"
+q = "{!child of='*:* -_nest_path_:*'}name_t:sub*"
+# any descendants
+q = "target_s:*"
+expr=f'''select(drill(reltest,
+        q={q},
+        fl="target_s",
+        sort="target_s asc",
+        rollup(input(), over="target_s", count(*))
+    ),
+    target_s as id,
+    count(*) as cnt
+)'''
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res, add_label="cnt")
+```
+
+## Number of outgoing edges
+
+```{python}
+expr='''select(
+    rollup(
+        search(reltest,
+            q="target_s:*",
+            fl="*",
+            rows=100
+        ),
+        over="_nest_parent_",
+        count(*)
+    ),
+    _nest_parent_ as id,
+    count(*) as cnt
+)'''
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res, add_label="cnt")
+```
+
+## Nodes with an incoming edge and no outgoing edge
+
+This finds progenitors of possibly overlapping graphs, nodes `a` and `b` in this case, assuming isolated single nodes are not considered to be a graph.
+
+One approach is to take the complement of the nodes with incoming edges and nodes with outgoing edges.
+
+```{python}
+incoming ='''select(
+            facet(reltest,
+                q="target_s:*",
+                buckets="target_s",
+                rows=100,
+                count(*)
+            ),
+            target_s as id,
+            count(*) as cnt
+        )'''
+outgoing = '''select(
+            rollup(
+                search(
+                    reltest,
+                    q="target_s:*",
+                    fl="*",
+                    rows=100
+                ),
+                over="_nest_parent_",
+                count(*)
+            ),
+            _nest_parent_ as id,
+            count(*) as cnt
+        )'''
+
+expr = f'''complement(
+    sort(
+        {incoming}, 
+        by="id asc"
+    ),
+    sort(
+        {outgoing}, 
+        by="id asc"
+    ),
+    on="id"
+)
+'''
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res)
+```
+
+Another approach is an `innerJoin`, or `intersect` to emit only docs with incoming edges, but no outgoing edges. The `intersect` operation will only emit fields from the first stream whereas `innerJoin` will emit a union of fields. Both are illustrated below.
+
+```{python}
+A = '''search(
+        reltest,
+        q="-_nest_path_:* AND !({!parent which='*:* -_nest_path_:*'}+target_s:*)",
+        fl="id,name_t",
+        sort="id asc",
+    )'''
+B ='''sort(
+        facet(
+            reltest,
+            q="target_s:*",
+            buckets="target_s",
+            rows=100,
+            count(*)
+        ),
+        by="target_s asc"
+    )'''
+expr = f'''intersect(
+    {A},
+    {B},
+    on="id=target_s"
+)'''
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res, show_docs=True, show_graph=False)
+```
+
+```{python}
+A = '''search(
+        reltest,
+        q="-_nest_path_:* AND !({!parent which='*:* -_nest_path_:*'}+target_s:*)",
+        fl="id,name_t",
+        sort="id asc",
+    )'''
+B ='''sort(
+        facet(
+            reltest,
+            q="target_s:*",
+            buckets="target_s",
+            rows=100,
+            count(*)
+        ),
+        by="target_s asc"
+    )'''
+expr = f'''innerJoin(
+    {A},
+    {B},
+    on="id=target_s"
+)'''
+print(expr)
+res = solr.sendExpr(expr)
+solr.render(example_graph.docs, res, show_docs=True, show_graph=False)
+```
