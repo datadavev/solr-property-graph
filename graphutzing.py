@@ -3,9 +3,10 @@ import graphviz
 import requests
 import IPython.display
 
-def generateViz(recs, id_highlight=[]):
+def generateViz(recs, id_highlight=[],labels={}):
     # Visualize the data as a graph
     # Nodes with id in id_ighlight will be outlined in red
+    # entries in labels will be added to the node labels
     colors = {
         'subsample-of':'green',
         'analysis-of':'blue'
@@ -18,7 +19,8 @@ def generateViz(recs, id_highlight=[]):
     g = graphviz.Digraph()
     g.attr('graph', rankdir='BT', size="7")
     for rec in recs:
-        _label = f"{rec.get('id')}\n{rec.get('name_t')}"
+        rec_id = rec.get('id')
+        _label = f"{rec_id}\n{rec.get('name_t')}\n{labels.get(rec_id,'')}".strip()
         _shape = kinds.get(rec.get('is_s',None),'plain')
         _color = "black"
         if rec.get('id') in id_highlight:
@@ -39,6 +41,8 @@ class SolrConnection:
         self.server = server
         self.solr = f"{server}/solr"
         self.collection = collection
+        self._relation_target = "relation_target"
+        self._relation_type = "relation_type"
 
 
     def addField(self, name, ftype="string", indexed="true", stored="true"):
@@ -140,12 +144,83 @@ class SolrConnection:
         return self.sendExpr(expr)
 
 
-    def render(self, documents, results, idcol="id", show_docs=False, show_graph=True):
+    def render(self, documents, results, idcol="id", show_docs=False, show_graph=True, add_label=None):
         ids = []
+        labels = {}
         for _rec in results.get('result-set',{}).get('docs',[]):
-            ids.append(_rec.get(idcol))
+            rec_id = _rec.get(idcol)
+            ids.append(rec_id)
+            if add_label is not None:
+                labels[rec_id] = _rec.get(add_label, "")
         if show_docs:
             print(json.dumps(results, indent=2))
         if show_graph:
-            IPython.display.display(generateViz(documents, id_highlight=ids))
+            IPython.display.display(generateViz(documents, id_highlight=ids, labels=labels))
     
+    def ancestors(self, node_id, fl="*", rows=1000):
+        expr = '''search(''' + self.collection + ''',
+            q="{!join 
+                    from='''+self._relation_target+''' 
+                    to=id
+                }{!graph 
+                    from=_nest_parent_ 
+                    to='''+self._relation_target+'''
+                }({!child 
+                    of='*:* -_nest_path_:*'
+                }id:''' + node_id + ''')",
+            fl="''' + fl + '''",
+            rows=''' + str(rows) + '''
+        )'''
+        res = self.sendExpr(expr)
+        return res
+
+    def descendants(self, node_id, fl="*", rows=1000):
+        expr = '''search(''' + self.collection + ''',
+           q="{!parent which='*:* -_nest_path_:*'}({!graph 
+            to=_nest_parent_ 
+            from='''+self._relation_target+'''
+        }'''+self._relation_target+''':'''+node_id + ''')",
+        fl="'''+fl+'''",
+        rows='''+str(rows)+'''
+        )'''
+        res = self.sendExpr(expr)
+        return res
+
+    def progenitors(self, rows=1000):
+        incoming ='''select(
+                    facet(''' + self.collection + ''',
+                        q="'''+self._relation_target+''':*",
+                        buckets="'''+self._relation_target+'''",
+                        rows=100,
+                        count(*)
+                    ),
+                    '''+self._relation_target+''' as id,
+                    count(*) as cnt
+                )'''
+        outgoing = '''select(
+                    rollup(
+                        search(
+                            ''' + self.collection + ''',
+                            q="'''+self._relation_target+''':*",
+                            fl="*",
+                            rows=100
+                        ),
+                        over="_nest_parent_",
+                        count(*)
+                    ),
+                    _nest_parent_ as id,
+                    count(*) as cnt
+                )'''
+        expr = f'''complement(
+            sort(
+                {incoming}, 
+                by="id asc"
+            ),
+            sort(
+                {outgoing}, 
+                by="id asc"
+            ),
+            on="id"
+        )
+        '''
+        
