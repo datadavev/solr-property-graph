@@ -152,7 +152,7 @@ Note that the ancestors are actually the documents that are referenced from the 
 )
 ```
 
-An alternative, when using streaming expressesions is to use the [`fetch`](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#fetch) stream decorator:
+An alternative, when using streaming expressions is to use the [`fetch`](https://solr.apache.org/guide/solr/latest/query-guide/stream-decorator-reference.html#fetch) stream decorator:
 
 ```
 fetch(COLLECTION,
@@ -181,7 +181,7 @@ The first uses the `!join` query expression. See @fig-n1.
 
 ```{python}
 #| label: fig-n1
-#| fig-cap: "A line plot on a polar axis"
+#| fig-cap: "Ancestors using `join` on the edge target."
 
 import example_graph
 import graphutzing
@@ -209,7 +209,7 @@ solr.render(example_graph.docs, res)
 The second uses the `fetch` stream decorator, see @fig-n2:
 ```{python}
 #| label: fig-n2
-#| fig-cap: "A line plot on a polar axis"
+#| fig-cap: "Ancestors using `fetch` from the edge target."
 
 ex1 = '''search(reltest,
         q="{!graph 
@@ -239,6 +239,8 @@ This pattern can be used to find ancestors that match a filter.
 In this case, documents that are the ancestor of `ccc` are found by an ancestor graph traversal, then only the documents from that set that are samples (`is_s:sample`) are returned.
 
 ```{python}
+#| label: fig-n3
+#| fig-cap: "Samples contributing to publication `ccc`."
 ex1 = '''    search(reltest, 
             q="{!graph 
                 to=target_s 
@@ -272,6 +274,8 @@ Finding Descendants is similar to finding ancestors, except we are walking the g
 In this example derivatives (i.e. Descendants) of `id:b` are found.
 
 ```{python}
+#| label: fig-n4
+#| fig-cap: "Descendants of `b` using `fetch` on `_nest_parent_`."
 ex1 = '''    search(
         reltest,
         q="{!graph 
@@ -296,6 +300,8 @@ solr.render(example_graph.docs, res)
 Alternatively, we can use the `!parent` query parser to similar effect:
 
 ```{python}
+#| label: fig-n5
+#| fig-cap: "Descendants of `b` using the `!parent` query parser on nodes emitted by graph traversal."
 ex1 = '''search(reltest,
     q="{!parent which='*:* -_nest_path_:*'}({!graph 
         to=_nest_parent_ 
@@ -317,6 +323,8 @@ In this case we are looking for analyses that were performed on material derived
 We follow the Descendants graph, but limit the traversal to only include `sample-of` or `analysis-of` relations to limit the reduce the scope of traversal. This exclusion is optional, but included here to illustrate the effect of the `traversal_filter` option. The resulting set of nodes includes samples and analyses. The analysis nodes are selected from that set using the `having` clause.
 
 ```{python}
+#| label: fig-n6
+#| fig-cap: "Analyses performed on derivatives of `a`."
 # Start with a as the target of a relation
 q1 = 'target_s:a'
 # Traverse the graph starting from q1, limit relations being followed to sample-of and analysis-of
